@@ -1,0 +1,47 @@
+name: CI - Electron
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_on_linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 10.16        
+          
+  build_on_macos:
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 10.16        
+      - name: Install dependencies
+        run: yarn install    
+      - name: Build production Electron app
+        run: yarn release      
+      - name: Upload a Build Artifact
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+#           name: # optional, default is artifact
+          path: releases/**/*.dmg
+        
+  build_on_windows:
+    runs-on: windows
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 10.16 
