@@ -106,7 +106,7 @@ function registerContextMenu(browserWindow: BrowserWindow): void {
     const menuItems: MenuItemConstructorOptions[] = [
         (isMac ? {
             role: "appMenu",
-        } : {}),
+        } : null),
         {
             role: "fileMenu",
         },
