@@ -1,0 +1,35 @@
+name: CI (Electron)
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  pull_request_target:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_electron_app:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 10.16        
+      - name: Install dependencies
+        run: yarn install    
+      - name: Build production Electron app
+        run: yarn release      
+      - name: Upload a Build Artifact
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          path: releases
+          # path: releases/**/*.dmg
