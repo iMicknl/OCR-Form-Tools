@@ -34,6 +34,8 @@ jobs:
         run: yarn install    
       - name: Build production Electron app
         run: yarn release      
+        env:
+          CI: false # required since Yarn will fail on warnings in CI environments
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.1
         with:
