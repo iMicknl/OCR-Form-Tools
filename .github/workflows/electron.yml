@@ -11,6 +11,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_electron_app:
+    name: "Build Electron Apps"
     runs-on: ${{ matrix.os }}
 
     strategy:
