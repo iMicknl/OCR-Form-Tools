@@ -31,7 +31,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}     
       - name: Install dependencies
-        run: yarn install    
+        run: yarn install --network-timeout 1000000 # Change default network timeout to fix Windows-latest issues
       - name: Build production Electron app
         run: yarn release      
         env:
@@ -39,5 +39,8 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.1
         with:
-          path: releases
-          # path: releases/**/*.dmg
+          path: |
+            releases/**/*.dmg
+            releases/**/*.snap
+            releases/**/*.exe
+
