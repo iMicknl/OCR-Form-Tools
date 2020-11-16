@@ -34,13 +34,5 @@ jobs:
       - uses: actions/upload-artifact@v2.2.1
         with:
 #           name: # optional, default is artifact
-          path: releases/**/*.dmg
-        
-  build_on_windows:
-    runs-on: windows
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-        with:
-          node-version: 10.16 
+          path: releases
+          # path: releases/**/*.dmg
